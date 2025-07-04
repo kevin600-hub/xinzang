@@ -21,7 +21,7 @@ def user_input_features():
     oldpeak = st.sidebar.slider("ST 抑制值", 0.0, 6.0, 1.0, step=0.1)
     slope = st.sidebar.selectbox("ST 斜率类型", ["upsloping", "flat", "downsloping"])
     ca = st.sidebar.slider("主要血管数量", 0, 3, 0)
-    thal = st.sidebar.selectbox("地中海贫血类型", ["normal", "fixed defect", "reversable defect"])
+    thal = st.sidebar.selectbox("地中海贫血类型", ["normal", "fixed defect", "reversible defect"])
 
     data = {
         "age": age,
