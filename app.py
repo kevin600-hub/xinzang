@@ -1,4 +1,3 @@
-
 import pandas as pd
 import joblib
 import streamlit as st
@@ -47,7 +46,10 @@ input_df = user_input_features()
 
 # 加载原始数据，准备编码器
 df = pd.read_csv("heart_disease_uci.csv")
-df = df.drop(columns=["id", "dataset"])
+
+# ✅ 删除这一行，因为 CSV 没有这些列
+# df = df.drop(columns=["id", "dataset"])
+
 label_cols = ["sex", "cp", "fbs", "restecg", "exang", "slope", "thal"]
 le_dict = {}
 for col in label_cols:
