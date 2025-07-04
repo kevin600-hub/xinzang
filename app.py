@@ -2,12 +2,10 @@ import pandas as pd
 import streamlit as st
 import joblib
 
-from sklearn.ensemble import RandomForestClassifier
-
 # 页面标题
 st.title("心脏病预测系统（随机森林模型）")
 
-# 侧边栏用户输入
+# 用户输入
 st.sidebar.header("输入病人信息")
 
 def user_input_features():
@@ -42,24 +40,23 @@ def user_input_features():
     }
     return pd.DataFrame(data, index=[0])
 
-# 获取用户输入
 input_df = user_input_features()
 
 # 加载模型和编码器
 model = joblib.load("model.pkl")
 le_dict = joblib.load("le_dict.pkl")
 
-# 应用相同编码器到输入数据
+# 编码输入
 label_cols = ["sex", "cp", "fbs", "restecg", "exang", "slope", "thal"]
 for col in label_cols:
-    input_df[col] = input_df[col].str.lower()
+    input_df[col] = input_df[col].astype(str).str.lower()
     input_df[col] = le_dict[col].transform(input_df[col])
 
 # 显示输入
 st.subheader("病人信息预览")
 st.write(input_df)
 
-# 模型预测
+# 预测
 prediction = model.predict(input_df)[0]
 st.subheader("预测结果")
-st.write("有心脏病" if prediction == 1 else "没有心脏病")
+st.write("🧠 有心脏病" if prediction == 1 else "✅ 没有心脏病")
